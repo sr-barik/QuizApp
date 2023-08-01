@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:own_app2/custom_button.dart';
 import 'package:own_app2/data/Questions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Question extends StatefulWidget {
-  const Question({super.key});
+  const Question(this.onSelectAnswer, {super.key});
+  final void Function(String answer) onSelectAnswer;
 
   @override
   State<Question> createState() => _QuestionState();
 }
 
 class _QuestionState extends State<Question> {
+  var presentQuestion = 0;
+  void questionChange(String selectedAnswer) {
+    widget.onSelectAnswer(selectedAnswer);
+    setState(() {
+      presentQuestion++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final currentQuestion = questions[0];
+    final currentQuestion = questions[presentQuestion];
     return SizedBox(
       width: double.infinity,
       child: Center(
@@ -25,27 +35,35 @@ class _QuestionState extends State<Question> {
                 Text(
                   currentQuestion.text,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 23, color: Colors.white),
+                  style: GoogleFonts.lato(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 18,
                 ),
-                OwnButton(currentQuestion.answers[0], () {}),
-                const SizedBox(
-                  height: 2,
-                ),
-                OwnButton(currentQuestion.answers[1], () {}),
-                const SizedBox(
-                  height: 2,
-                ),
-                OwnButton(currentQuestion.answers[2], () {}),
-                const SizedBox(
-                  height: 2,
-                ),
-                OwnButton(currentQuestion.answers[3], () {}),
-                const SizedBox(
-                  height: 2,
-                ),
+                ...currentQuestion.changingForm().map((answer) {
+                  return OwnButton(answer, () {
+                    questionChange(answer);
+                  });
+                })
+                // OwnButton(currentQuestion.answers[0], () {}),
+                // const SizedBox(
+                //   height: 2,
+                // ),
+                // OwnButton(currentQuestion.answers[1], () {}),
+                // const SizedBox(
+                //   height: 2,
+                // ),
+                // OwnButton(currentQuestion.answers[2], () {}),
+                // const SizedBox(
+                //   height: 2,
+                // ),
+                // OwnButton(currentQuestion.answers[3], () {}),
+                // const SizedBox(
+                //   height: 2,
+                // ),
               ]),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OwnButton extends StatelessWidget {
   const OwnButton(this.text, this.onTap, {super.key});
@@ -15,8 +16,12 @@ class OwnButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
         onPressed: onTap,
-        child: Text(text));
+        child: Text(
+          style: GoogleFonts.lato(fontWeight: FontWeight.bold),
+          text,
+          textAlign: TextAlign.center,
+        ));
   }
 }
