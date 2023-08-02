@@ -25,8 +25,7 @@ class _QuizState extends State<Quiz> {
     selectedAnswer.add(answer);
     if (selectedAnswer.length == questions.length) {
       setState(() {
-        selectedAnswer = [];
-        activeScreen = const ResultScreen();
+        activeScreen = ResultScreen(selectedAnswer);
       });
     }
   }
@@ -39,6 +38,9 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
+    // if (activeScreen == ResultScreen()) {
+    //   activeScreen =  ResultScreen();
+    // }
     return MaterialApp(
       home: Scaffold(
           body: Container(
